@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TMSMVC.ViewModel.TaskView>
+@{
+    ViewBag.Title = "TaskList";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["UserName"] != null)
+{
+    <text> Welcome @Session["UserName"].ToString() </text>
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/Task.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h2>My Tasks</h2>
+        @using (Html.BeginForm("NewTask", "Task", FormMethod.Get))
+        {
+            <div>
+                <input type="submit" value="Add New Task" class="btn btn-primary btn-block" onclick="return clearTextBox();" />
+            </div>
+        }
+        <table class="table table-bordered table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Task Name
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Assigner
+                    </th>
+                    <th>
+                        Assigned Date
+                    </th>
+                    <th>
+                        Due Date
+                    </th>
+                    <th>
+                        AssignedBy
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="tbody">
+
+                @foreach (TMSMVC.ViewModel.TaskView item in Model)
+                {
+                    <tr>
+                        <td>@item.TaskID</td>
+                        <td>@item.TaskName</td>
+                        <td>@item.StatusName</td>
+                        <td>@item.PriorityName</td>
+                        <td>@item.AssigneeName</td>
+                        <td>@item.AssignedDate</td>
+                        <td>@item.DueDate</td>
+                        <td>@item.UserName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
+<script>
+    function clearTextBox() {
+        $('#TaskID').val("");
+        $('#TaskName').val("");
+        $('#Assignee').val(""),
+            //$('#AssignedDate').val("");
+            $('#Priority').val("");
+        var myselect = $("#Status");
+        myselect[0].selectedIndex = 0;
+        myselect.selectmenu("refresh");
+        //$('#Duedate').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+    }
+</script>
+
+
+
+
+
+
+
+
