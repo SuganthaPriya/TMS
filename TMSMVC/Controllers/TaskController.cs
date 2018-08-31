@@ -35,7 +35,6 @@ namespace TMSMVC.Controllers
         public ActionResult NewTask(TaskCreate taskCreate)
         {
             return View();
-
         }
     }
 }
